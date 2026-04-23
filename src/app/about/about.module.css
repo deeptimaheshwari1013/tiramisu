@@ -1,0 +1,29 @@
+.heading {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+
+.body {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text-muted);
+  max-width: 520px;
+}
+
+.body p {
+  margin-bottom: 18px;
+}
+
+.body a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.body em {
+  font-style: italic;
+}
