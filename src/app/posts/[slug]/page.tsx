@@ -2,6 +2,7 @@ import Link from "next/link";
 import { posts } from "@/data/posts";
 import { notFound } from "next/navigation";
 import styles from "./post.module.css";
+import ReactMarkdown from "react-markdown";
 
 export function generateStaticParams() {
   return posts.map((p) => ({ slug: p.slug }));
@@ -10,12 +11,13 @@ export function generateStaticParams() {
 export default function PostPage({ params }: { params: { slug: string } }) {
   const post = posts.find((p) => p.slug === params.slug);
   if (!post) notFound();
+  const p = post!;  // ← fixes the TypeScript error
 
   return (
     <div className={styles.page}>
       <nav className={styles.nav}>
         <Link href="/" className={styles.navLogo}>
-          <span className={styles.navStar}>✦</span> your name.
+          <span className={styles.navStar}>✦</span> Deepti Maheshwari.
         </Link>
         <div className={styles.navLinks}>
           <Link href="/writing">writing</Link>
@@ -28,27 +30,17 @@ export default function PostPage({ params }: { params: { slug: string } }) {
         <Link href="/" className={styles.back}>← back</Link>
 
         <div className={styles.postMeta}>
-          <span className={styles.category}>{post.category}</span>
-          <span>{post.date}</span>
+          <span className={styles.category}>{p.category}</span>
+          <span>{p.date}</span>
           <span>·</span>
-          <span>{post.readTime}</span>
+          <span>{p.readTime}</span>
         </div>
 
-        <h1 className={styles.title}>{post.title}</h1>
+        <h1 className={styles.title}>{p.title}</h1>
 
         <div className={styles.body}>
-          <p>{post.excerpt}</p>
-          <p>
-            This is where your full post content goes. You can write as much as you
-            want here. Replace this with your actual writing — markdown, paragraphs,
-            code snippets, whatever you like.
-          </p>
-          <p>
-            To add more posts, open <code>src/data/posts.ts</code> and add a new
-            entry to the array. Then create the corresponding post page or let this
-            template handle it.
-          </p>
-        </div>
+  <ReactMarkdown>{post.content}</ReactMarkdown>
+</div>
       </main>
 
       <footer className={styles.footer}>
